@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | CampusCare</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/firebase-app.css">
+</head>
+<body class="cc-page" data-page="admin">
+  <header class="cc-header">
+    <a href="index.html" class="cc-brand">CampusCare</a>
+    <div class="cc-header-right">
+      <span id="userName"></span>
+      <button class="cc-button cc-outline" id="logout">Logout</button>
+    </div>
+  </header>
+
+  <main class="cc-container">
+    <div class="cc-heading">
+      <p class="cc-eyebrow">ADMINISTRATION</p>
+      <h1>Campus overview</h1>
+      <p>Monitor reports, assign teams and manage campus maintenance.</p>
+    </div>
+
+    <section class="cc-stats">
+      <article class="cc-panel"><span>Total reports</span><strong id="totalCount">0</strong></article>
+      <article class="cc-panel"><span>Pending</span><strong id="pendingCount">0</strong></article>
+      <article class="cc-panel"><span>In progress</span><strong id="progressCount">0</strong></article>
+      <article class="cc-panel"><span>Resolved</span><strong id="resolvedCount">0</strong></article>
+    </section>
+
+    <section class="cc-panel">
+      <h2>All campus reports</h2>
+      <div id="adminReports">Loading reports...</div>
+    </section>
+
+    <section class="cc-panel">
+      <h2>Manage users and roles</h2>
+      <p class="cc-small">
+        Only approved administrators can change a user's access.
+      </p>
+      <div id="userManagement">Loading users...</div>
+    </section>
+
+    <section class="cc-panel">
+      <h2>Reports by category</h2>
+      <div id="categoryAnalytics"></div>
+    </section>
+
+    <section class="cc-panel">
+      <h2>Activity log</h2>
+      <div id="activityLog">Loading activity...</div>
+    </section>
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

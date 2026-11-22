@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Login | CampusCare</title>
+
+  <link rel="icon" type="image/png" href="assets/campuscare-logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/firebase-app.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body.cc-page {
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'DM Sans', sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(46, 117, 255, 0.16), transparent 35%),
+        radial-gradient(circle at 85% 80%, rgba(0, 190, 255, 0.12), transparent 35%),
+        linear-gradient(135deg, #07152f, #102d5c 55%, #071b3d);
+      color: #ffffff;
+    }
+
+    .cc-header {
+      padding: 18px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+    }
+
+    .cc-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: white;
+      font-family: 'Manrope', sans-serif;
+      font-size: 21px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .cc-brand img {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .cc-link {
+      color: #d9e7ff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .cc-link:hover {
+      color: #58baff;
+    }
+
+    .cc-auth {
+      min-height: calc(100vh - 80px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 45px 20px;
+    }
+
+    .cc-auth-panel {
+      width: 100%;
+      max-width: 450px;
+      padding: 42px 38px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 25px;
+      backdrop-filter: blur(22px);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
+    }
+
+    .cc-logo {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cc-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 18px;
+    }
+
+    .cc-eyebrow {
+      color: #62c3ff;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+
+    .cc-auth-panel h1 {
+      color: #ffffff;
+      font-family: 'Manrope', sans-serif;
+      font-size: 29px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin: 0 0 12px;
+    }
+
+    .cc-auth-panel > p {
+      color: #c6d5ed;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    #googleLogin {
+      width: 100%;
+      min-height: 53px;
+      margin: 25px 0 12px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(100deg, #1675f9, #08a9e9);
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    #googleLogin:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 140, 255, 0.3);
+    }
+
+    #googleLogin:disabled {
+      opacity: 0.65;
+      cursor: wait;
+      transform: none;
+    }
+
+    .cc-message {
+      color: #ffffff;
+      font-size: 13px;
+      min-height: 20px;
+    }
+
+    .cc-small {
+      color: #aebfd9;
+      font-size: 12px;
+      line-height: 1.7;
+      margin-top: 22px;
+    }
+
+    .login-footer {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      color: #9fb4d2;
+      font-size: 11px;
+    }
+
+    @media (max-width: 500px) {
+      .cc-auth-panel {
+        padding: 35px 23px;
+      }
+
+      .cc-auth-panel h1 {
+        font-size: 25px;
+      }
+
+      .cc-header {
+        padding: 15px 5%;
+      }
+    }
+  </style>
+</head>
+
+<body class="cc-page">
+
+  <!-- HEADER -->
+  <header class="cc-header">
+
+    <a href="index.html" class="cc-brand">
+      <img
+        src="assets/campuscare-logo.png"
+        alt="CampusCare Logo"
+      >
+      <span>CampusCare</span>
+    </a>
+
+    <a href="index.html" class="cc-link">
+      ← Back to Home
+    </a>
+
+  </header>
+
+
+  <!-- LOGIN SECTION -->
+  <main class="cc-auth">
+
+    <section class="cc-panel cc-auth-panel">
+
+      <div class="cc-logo">
+        <img
+          src="assets/campuscare-logo.png"
+          alt="CampusCare Logo"
+        >
+      </div>
+
+      <p class="cc-eyebrow">
+        MIT ACADEMY OF ENGINEERING
+      </p>
+
+      <h1>Welcome to CampusCare</h1>
+
+      <p>
+        Your campus, your voice.
+        Sign in to report, assign and resolve campus issues.
+      </p>
+
+
+      <!-- GOOGLE LOGIN -->
+      <button id="googleLogin" class="cc-button cc-primary">
+        Continue with Google →
+      </button>
+
+      <p id="message" class="cc-message" aria-live="polite"></p>
+
+
+      <p class="cc-small">
+        Students can sign in using their Google account.
+        Admin and worker access requires approval.
+      </p>
+
+
+      <div class="login-footer">
+        A smarter way to build a better campus.
+        <br>
+        © <span id="year"></span> CampusCare
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- APPLICATION SCRIPT -->
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+
+  <script type="module" src="js/app.js"></script>
+
+</body>
+</html>

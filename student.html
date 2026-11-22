@@ -1,0 +1,491 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard | CampusCare</title>
+
+  <link rel="icon" type="image/png" href="assets/campuscare-logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/firebase-app.css">
+
+  <style>
+    :root {
+      --cc-bg: #071426;
+      --cc-card: rgba(17, 36, 62, 0.78);
+      --cc-border: rgba(148, 185, 230, 0.16);
+      --cc-blue: #3988ff;
+      --cc-blue-light: #65b5ff;
+      --cc-text: #f3f7ff;
+      --cc-muted: #9eb0c9;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body.cc-page {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--cc-text);
+      font-family: "DM Sans", sans-serif;
+      background:
+        radial-gradient(ellipse at 10% 0%, rgba(35, 105, 205, 0.25), transparent 38%),
+        radial-gradient(ellipse at 90% 20%, rgba(20, 75, 150, 0.18), transparent 35%),
+        linear-gradient(135deg, #06101f, #0a1d35 55%, #071426);
+      background-attachment: fixed;
+    }
+
+    .cc-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 6%;
+      background: rgba(5, 16, 31, 0.82);
+      border-bottom: 1px solid var(--cc-border);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .cc-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: #fff;
+      text-decoration: none;
+      font-family: "Manrope", sans-serif;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .cc-brand img {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+      border-radius: 11px;
+    }
+
+    .cc-header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--cc-muted);
+      font-size: 14px;
+    }
+
+    .cc-container {
+      width: min(1100px, 90%);
+      margin: 0 auto;
+      padding: 48px 0 70px;
+    }
+
+    .cc-heading {
+      margin-bottom: 30px;
+    }
+
+    .cc-eyebrow {
+      color: var(--cc-blue-light);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .cc-heading h1 {
+      margin: 10px 0;
+      color: #fff;
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      letter-spacing: -1.4px;
+    }
+
+    .cc-heading > p:last-child {
+      color: var(--cc-muted);
+      font-size: 16px;
+    }
+
+    .cc-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .cc-panel {
+      margin-bottom: 22px;
+      padding: 26px;
+      color: var(--cc-text);
+      background: var(--cc-card);
+      border: 1px solid var(--cc-border);
+      border-radius: 20px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .cc-stats .cc-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 0;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .cc-stats .cc-panel:hover {
+      transform: translateY(-4px);
+      border-color: rgba(70, 145, 255, 0.5);
+    }
+
+    .cc-stats span {
+      color: var(--cc-muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .cc-stats strong {
+      color: #fff;
+      font-family: "Manrope", sans-serif;
+      font-size: 34px;
+      font-weight: 800;
+    }
+
+    .cc-panel h2 {
+      margin: 0 0 22px;
+      color: #fff;
+      font-family: "Manrope", sans-serif;
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    form label {
+      display: block;
+      margin: 17px 0 8px;
+      color: #dce8fa;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    form input:not([type="file"]),
+    form select,
+    form textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 13px 15px;
+      color: #f4f8ff;
+      background: rgba(5, 17, 34, 0.75);
+      border: 1px solid rgba(150, 180, 220, 0.2);
+      border-radius: 11px;
+      outline: none;
+      font: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    form input[type="file"] {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      color: var(--cc-muted);
+      background: rgba(5, 17, 34, 0.75);
+      border: 1px dashed rgba(150, 180, 220, 0.3);
+      border-radius: 11px;
+      font: inherit;
+    }
+
+    form input:focus,
+    form select:focus,
+    form textarea:focus {
+      border-color: var(--cc-blue);
+      box-shadow: 0 0 0 3px rgba(57, 136, 255, 0.15);
+    }
+
+    form input::placeholder,
+    form textarea::placeholder {
+      color: #7186a4;
+    }
+
+    form select option {
+      color: #fff;
+      background: #10243e;
+    }
+
+    form textarea {
+      min-height: 115px;
+      resize: vertical;
+    }
+
+    .cc-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 11px 19px;
+      border-radius: 10px;
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+
+    .cc-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .cc-primary {
+      color: white;
+      background: linear-gradient(135deg, #2878ed, #48a3ff);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 7px 22px rgba(36, 117, 232, 0.25);
+    }
+
+    .cc-primary:hover {
+      box-shadow: 0 10px 28px rgba(36, 117, 232, 0.4);
+    }
+
+    .cc-outline {
+      color: #dceaff;
+      background: rgba(47, 105, 180, 0.12);
+      border: 1px solid rgba(100, 165, 255, 0.35);
+    }
+
+    .cc-outline:hover {
+      background: rgba(47, 105, 180, 0.25);
+    }
+
+    #reportForm .cc-primary {
+      width: 100%;
+      margin-top: 22px;
+      min-height: 50px;
+      font-size: 15px;
+    }
+
+    #getLocation {
+      margin-top: 12px;
+    }
+
+    .cc-small {
+      color: var(--cc-muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .cc-message {
+      color: var(--cc-blue-light);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    #myReports,
+    #notifications {
+      color: var(--cc-muted);
+      line-height: 1.7;
+    }
+
+    #myReports > *,
+    #notifications > * {
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 650px) {
+      .cc-header {
+        padding: 12px 5%;
+      }
+
+      .cc-brand {
+        font-size: 18px;
+      }
+
+      .cc-brand img {
+        width: 39px;
+        height: 39px;
+      }
+
+      .cc-header-right {
+        gap: 9px;
+        font-size: 12px;
+      }
+
+      .cc-container {
+        width: 92%;
+        padding-top: 32px;
+      }
+
+      .cc-stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .cc-stats .cc-panel {
+        padding: 19px;
+      }
+
+      .cc-stats strong {
+        font-size: 28px;
+      }
+
+      .cc-panel {
+        padding: 20px;
+        border-radius: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body class="cc-page" data-page="student">
+
+  <header class="cc-header">
+    <a href="index.html" class="cc-brand">
+      <img src="assets/campuscare-logo.png" alt="CampusCare Logo">
+      <span>CampusCare</span>
+    </a>
+
+    <div class="cc-header-right">
+      <span id="userName"></span>
+      <button class="cc-button cc-outline" id="logout">
+        Logout
+      </button>
+    </div>
+  </header>
+
+  <main class="cc-container">
+
+    <div class="cc-heading">
+      <p class="cc-eyebrow">STUDENT PORTAL</p>
+      <h1>Report a campus issue</h1>
+      <p>Help us make your campus safer and better.</p>
+    </div>
+
+    <section class="cc-stats">
+
+      <article class="cc-panel">
+        <span>Total reports</span>
+        <strong id="totalCount">0</strong>
+      </article>
+
+      <article class="cc-panel">
+        <span>In progress</span>
+        <strong id="progressCount">0</strong>
+      </article>
+
+      <article class="cc-panel">
+        <span>Resolved</span>
+        <strong id="resolvedCount">0</strong>
+      </article>
+
+    </section>
+
+    <section class="cc-panel">
+
+      <h2>Submit a new report</h2>
+
+      <form id="reportForm">
+
+        <label>Issue title</label>
+        <input
+          name="title"
+          required
+          maxlength="100"
+          placeholder="Example: Broken classroom fan"
+        >
+
+        <label>Category</label>
+        <select name="category" required>
+          <option value="">Select category</option>
+          <option>Electrical</option>
+          <option>Plumbing</option>
+          <option>Cleanliness</option>
+          <option>Furniture</option>
+          <option>Infrastructure</option>
+          <option>Wi-Fi / Network</option>
+          <option>Other</option>
+        </select>
+
+        <label>Location</label>
+        <input
+          name="location"
+          required
+          maxlength="150"
+          placeholder="Building, floor, room or area"
+        >
+
+        <button
+          type="button"
+          id="getLocation"
+          class="cc-button cc-outline"
+        >
+          Use my current location
+        </button>
+
+        <p id="locationMessage" class="cc-small"></p>
+
+        <label>Priority</label>
+        <select name="priority" required>
+          <option value="Low">Low</option>
+          <option value="Medium" selected>Medium</option>
+          <option value="High">High</option>
+          <option value="Urgent">Urgent</option>
+        </select>
+
+        <label>Description</label>
+        <textarea
+          name="description"
+          required
+          maxlength="1500"
+          rows="4"
+          placeholder="Explain the issue clearly..."
+        ></textarea>
+
+        <label>Upload an image (optional)</label>
+        <input
+          type="file"
+          name="image"
+          accept="image/png,image/jpeg,image/webp"
+        >
+
+        <button class="cc-button cc-primary" type="submit">
+          Submit report
+        </button>
+
+        <p
+          id="reportMessage"
+          class="cc-message"
+          aria-live="polite"
+        ></p>
+
+      </form>
+
+    </section>
+
+    <section class="cc-panel">
+      <h2>My reports</h2>
+      <div id="myReports">
+        Loading reports...
+      </div>
+    </section>
+
+    <section class="cc-panel">
+      <h2>Notifications</h2>
+      <div id="notifications">
+        Loading notifications...
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+
+</body>
+</html>

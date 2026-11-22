@@ -1,0 +1,128 @@
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function userData() {
+      return get(
+        /databases/$(database)/documents/users/$(request.auth.uid)
+      ).data;
+    }
+
+    function isAdmin() {
+      return signedIn() && userData().role == "admin";
+    }
+
+    function isWorker() {
+      return signedIn() && userData().role == "worker";
+    }
+
+    function isReportOwner(reportId) {
+      return signedIn()
+        && get(
+          /databases/$(database)/documents/reports/$(reportId)
+        ).data.studentId == request.auth.uid;
+    }
+
+    function isAssignedWorker(reportId) {
+      return signedIn()
+        && get(
+          /databases/$(database)/documents/reports/$(reportId)
+        ).data.assignedTo == request.auth.uid
+        && isWorker();
+    }
+
+    // USER PROFILES
+    match /users/{userId} {
+      allow create: if signedIn()
+        && request.auth.uid == userId
+        && request.resource.data.uid == userId
+        && request.resource.data.role == "student";
+
+      allow read: if signedIn()
+        && (request.auth.uid == userId || isAdmin());
+
+      allow update: if isAdmin();
+
+      allow delete: if false;
+    }
+
+    // CAMPUS REPORTS
+    match /reports/{reportId} {
+      allow create: if signedIn()
+        && request.resource.data.studentId == request.auth.uid
+        && request.resource.data.status == "Pending"
+        && request.resource.data.assignedTo == ""
+        && request.resource.data.title is string
+        && request.resource.data.location is string
+        && request.resource.data.description is string;
+
+      allow read: if signedIn()
+        && (
+          isAdmin()
+          || resource.data.studentId == request.auth.uid
+          || (
+            isWorker()
+            && resource.data.assignedTo == request.auth.uid
+          )
+        );
+
+      allow update: if isAdmin()
+        || (
+          isWorker()
+          && resource.data.assignedTo == request.auth.uid
+          && request.resource.data.diff(resource.data).affectedKeys()
+            .hasOnly(["status", "updatedAt"])
+          && (
+            (
+              resource.data.status == "Pending"
+              && request.resource.data.status == "In Progress"
+            )
+            ||
+            (
+              resource.data.status == "In Progress"
+              && request.resource.data.status == "Awaiting Verification"
+            )
+          )
+        );
+
+      allow delete: if isAdmin();
+    }
+
+    // NOTIFICATIONS
+    match /notifications/{notificationId} {
+      allow read: if signedIn()
+        && resource.data.userId == request.auth.uid;
+
+      allow create: if signedIn()
+        && request.resource.data.userId is string
+        && request.resource.data.reportId is string
+        && (
+          isAdmin()
+          || isAssignedWorker(request.resource.data.reportId)
+        );
+
+      allow update: if signedIn()
+        && resource.data.userId == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(["read"]);
+
+      allow delete: if false;
+    }
+
+    // ACTIVITY LOGS
+    match /activityLogs/{logId} {
+      allow create: if signedIn()
+        && request.resource.data.actorId == request.auth.uid;
+
+      allow read: if isAdmin();
+
+      allow update, delete: if false;
+    }
+  }
+}

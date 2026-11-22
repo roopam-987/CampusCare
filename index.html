@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CampusCare - Report, assign and resolve campus maintenance issues at MIT AOE.">
+
+    <title>CampusCare | Report. Assign. Resolve.</title>
+
+    <!-- CampusCare Logo / Favicon -->
+    <link rel="icon" type="image/png" href="assets/campuscare-logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- CampusCare Logo Styling -->
+    <style>
+        .campuscare-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            border-radius: 12px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header class="navbar">
+
+        <a href="index.html" class="brand">
+            <img
+                src="assets/campuscare-logo.png"
+                alt="CampusCare Logo"
+                class="campuscare-logo"
+            >
+            CampusCare
+        </a>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#process">How It Works</a>
+            <a href="#categories">Categories</a>
+        </nav>
+
+        <a href="login.html" class="nav-login">
+            Login / Get Started <span>→</span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+            ☰
+        </button>
+
+    </header>
+
+
+    <main>
+
+        <!-- HERO SECTION -->
+        <section class="hero" id="home">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    <span class="status-dot"></span>
+                    MIT ACADEMY OF ENGINEERING · ALANDI
+                </div>
+
+                <h1>
+                    A Better Campus
+                    Starts With <span>One Report.</span>
+                </h1>
+
+                <p class="hero-description">
+                    See a problem around your campus? Report it in
+                    seconds. CampusCare connects students,
+                    administrators and maintenance teams to make
+                    campus life cleaner, safer and better.
+                </p>
+
+                <div class="hero-actions">
+
+                    <a href="login.html" class="btn-primary">
+                        Report an Issue <span>→</span>
+                    </a>
+
+                    <a href="#process" class="btn-secondary">
+                        Explore How It Works
+                    </a>
+
+                </div>
+
+                <div class="hero-trust">
+                    <span class="trust-icon">✓</span>
+                    Simple Reporting
+                    <span class="trust-icon">✓</span>
+                    Easy Tracking
+                    <span class="trust-icon">✓</span>
+                    Faster Resolution
+                </div>
+
+            </div>
+
+
+            <!-- DASHBOARD PREVIEW -->
+            <div class="hero-visual">
+
+                <div class="visual-glow"></div>
+
+                <div class="dashboard-preview">
+
+                    <div class="preview-top">
+                        <div>
+                            <div class="preview-label">CAMPUSCARE OVERVIEW</div>
+                            <h3>Issue Management</h3>
+                        </div>
+
+                        <span class="live-indicator">● SYSTEM</span>
+                    </div>
+
+
+                    <div class="preview-card">
+                        <div class="preview-icon green">📋</div>
+
+                        <div>
+                            <strong>Report an Issue</strong>
+                            <p>Share problems with details and photos</p>
+                        </div>
+
+                        <span class="preview-arrow">→</span>
+                    </div>
+
+
+                    <div class="preview-card">
+                        <div class="preview-icon blue">🛠️</div>
+
+                        <div>
+                            <strong>Task Assignment</strong>
+                            <p>Administrators assign the right team</p>
+                        </div>
+
+                        <span class="preview-arrow">→</span>
+                    </div>
+
+
+                    <div class="preview-card">
+                        <div class="preview-icon orange">✓</div>
+
+                        <div>
+                            <strong>Issue Resolution</strong>
+                            <p>Track progress until the issue is resolved</p>
+                        </div>
+
+                        <span class="preview-arrow">→</span>
+                    </div>
+
+
+                    <div class="preview-footer">
+                        <span class="footer-check">✓</span>
+                        One connected campus maintenance system
+                    </div>
+
+                </div>
+
+
+                <div class="floating-tag tag-one">
+                    <span>●</span> SMART REPORTING
+                </div>
+
+                <div class="floating-tag tag-two">
+                    <span>✓</span> TRACK YOUR ISSUES
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TRUST STRIP -->
+        <section class="trust-strip">
+
+            <div>
+                <span class="strip-icon">◎</span>
+                Student Friendly
+            </div>
+
+            <div>
+                <span class="strip-icon">⌖</span>
+                Location Based
+            </div>
+
+            <div>
+                <span class="strip-icon">↻</span>
+                Progress Tracking
+            </div>
+
+            <div>
+                <span class="strip-icon">✓</span>
+                Organized Maintenance
+            </div>
+
+        </section>
+
+
+        <!-- ABOUT SECTION -->
+        <section class="section about-section" id="about">
+
+            <div class="section-heading">
+
+                <span class="section-label">ABOUT CAMPUSCARE</span>
+
+                <h2>
+                    Your Campus. Your Voice.
+                    <span>Our Responsibility.</span>
+                </h2>
+
+                <p>
+                    CampusCare is a campus issue reporting and
+                    maintenance management platform designed for
+                    MIT Academy of Engineering. It brings students,
+                    administrators and maintenance workers together
+                    through one organized digital system.
+                </p>
+
+            </div>
+
+
+            <div class="about-grid">
+
+                <div class="info-card">
+                    <div class="info-icon">01</div>
+
+                    <h3>Easy Issue Reporting</h3>
+
+                    <p>
+                        Students can report cleanliness,
+                        infrastructure, electrical and other
+                        campus problems with descriptions and photos.
+                    </p>
+                </div>
+
+
+                <div class="info-card">
+                    <div class="info-icon">02</div>
+
+                    <h3>Location Assistance</h3>
+
+                    <p>
+                        Add the issue location manually or use
+                        device location support to help the
+                        maintenance team find the problem.
+                    </p>
+                </div>
+
+
+                <div class="info-card">
+                    <div class="info-icon">03</div>
+
+                    <h3>Transparent Tracking</h3>
+
+                    <p>
+                        Follow the status of submitted reports
+                        and receive updates as the maintenance
+                        team works on them.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PROCESS SECTION -->
+        <section class="section process-section" id="process">
+
+            <div class="section-heading">
+
+                <span class="section-label">HOW IT WORKS</span>
+
+                <h2>
+                    Three Steps.
+                    <span>One Better Campus.</span>
+                </h2>
+
+                <p>
+                    From reporting a problem to getting it fixed,
+                    CampusCare makes the process simple and organized.
+                </p>
+
+            </div>
+
+
+            <div class="process-grid">
+
+                <div class="process-step">
+
+                    <span class="step-number">01</span>
+
+                    <div class="step-symbol">📝</div>
+
+                    <h3>Report</h3>
+
+                    <p>
+                        Students submit a report with its category,
+                        description, photo and location.
+                    </p>
+
+                </div>
+
+
+                <div class="process-step">
+
+                    <span class="step-number">02</span>
+
+                    <div class="step-symbol">🛠️</div>
+
+                    <h3>Assign</h3>
+
+                    <p>
+                        Administrators review the issue, set its
+                        priority and assign it to the appropriate worker.
+                    </p>
+
+                </div>
+
+
+                <div class="process-step">
+
+                    <span class="step-number">03</span>
+
+                    <div class="step-symbol">✅</div>
+
+                    <h3>Resolve</h3>
+
+                    <p>
+                        Workers complete the assigned task.
+                        Administrators verify the work and close the report.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ISSUE CATEGORIES -->
+        <section class="section categories-section" id="categories">
+
+            <div class="section-heading">
+
+                <span class="section-label">WHAT CAN YOU REPORT?</span>
+
+                <h2>
+                    Every Campus Issue
+                    <span>Matters.</span>
+                </h2>
+
+                <p>
+                    Report different types of maintenance and
+                    infrastructure problems from one place.
+                </p>
+
+            </div>
+
+
+            <div class="category-grid">
+
+                <div class="category-card">
+                    <span>🧹</span>
+                    <h3>Cleanliness</h3>
+                    <p>Garbage, dirty spaces and sanitation.</p>
+                </div>
+
+                <div class="category-card">
+                    <span>💡</span>
+                    <h3>Electrical</h3>
+                    <p>Broken lights, wiring and power problems.</p>
+                </div>
+
+                <div class="category-card">
+                    <span>🏢</span>
+                    <h3>Infrastructure</h3>
+                    <p>Damaged buildings, walls and facilities.</p>
+                </div>
+
+                <div class="category-card">
+                    <span>🚰</span>
+                    <h3>Water & Plumbing</h3>
+                    <p>Water leakage and plumbing problems.</p>
+                </div>
+
+                <div class="category-card">
+                    <span>🪑</span>
+                    <h3>Classroom Issues</h3>
+                    <p>Furniture, boards and classroom facilities.</p>
+                </div>
+
+                <div class="category-card">
+                    <span>⚠️</span>
+                    <h3>Safety Concerns</h3>
+                    <p>Hazards and potentially dangerous situations.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CALL TO ACTION -->
+        <section class="cta-section">
+
+            <div>
+
+                <span class="section-label">BE PART OF THE CHANGE</span>
+
+                <h2>
+                    A Better Campus Begins With You.
+                </h2>
+
+                <p>
+                    Notice a problem? Speak up, report it and
+                    help make a difference.
+                </p>
+
+            </div>
+
+            <a href="login.html" class="btn-light">
+                Get Started <span>→</span>
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="footer-top">
+
+            <div class="footer-brand">
+                <a href="index.html" class="brand">
+                    <img
+                        src="assets/campuscare-logo.png"
+                        alt="CampusCare Logo"
+                        class="campuscare-logo"
+                    >
+                    <span style="color:white;">CampusCare</span>
+                </a>
+            </div>
+
+            <p>Report. Assign. Resolve.</p>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+                © <span id="year"></span> CampusCare.
+                MIT Academy of Engineering, Alandi.
+            </p>
+
+            <p>Made for a better campus experience.</p>
+
+        </div>
+
+    </footer>
+
+
+    <script>
+        // Current year
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+        // Mobile navigation
+        const menuToggle = document.getElementById("menuToggle");
+        const navLinks = document.getElementById("navLinks");
+
+        menuToggle.addEventListener("click", function () {
+            navLinks.classList.toggle("active");
+
+            menuToggle.textContent =
+                navLinks.classList.contains("active") ? "✕" : "☰";
+        });
+
+        // Close menu after clicking a navigation link
+        document.querySelectorAll(".nav-links a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                navLinks.classList.remove("active");
+                menuToggle.textContent = "☰";
+            });
+        });
+    </script>
+
+</body>
+</html>
