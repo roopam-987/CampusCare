@@ -1,60 +1,579 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard | CampusCare</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/firebase-app.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="CampusCare Admin Dashboard - Manage campus reports, users and maintenance activities.">
+
+    <title>Admin Dashboard | CampusCare</title>
+
+    <!-- CampusCare Logo -->
+    <link rel="icon" type="image/png" href="assets/campuscare-logo.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Existing CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/firebase-app.css">
+
+    <!-- Admin Dashboard Theme -->
+    <style>
+        :root {
+            --admin-bg: #080d1b;
+            --admin-panel: rgba(19, 29, 52, 0.82);
+            --admin-panel-border: rgba(255, 255, 255, 0.09);
+            --admin-blue: #3987ff;
+            --admin-violet: #9b75ff;
+            --admin-text: #f4f7ff;
+            --admin-muted: #9baac5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body.cc-page[data-page="admin"] {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--admin-text);
+            background:
+                radial-gradient(ellipse at 10% 0%, rgba(48, 105, 220, 0.20), transparent 38%),
+                radial-gradient(ellipse at 90% 12%, rgba(135, 83, 235, 0.17), transparent 35%),
+                linear-gradient(135deg, #080d1b 0%, #0b1428 50%, #101329 100%);
+            font-family: "DM Sans", sans-serif;
+        }
+
+        body.cc-page[data-page="admin"] h1,
+        body.cc-page[data-page="admin"] h2,
+        body.cc-page[data-page="admin"] h3 {
+            font-family: "Manrope", sans-serif;
+            color: #ffffff;
+        }
+
+        /* HEADER */
+
+        body.cc-page[data-page="admin"] .cc-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            min-height: 76px;
+            padding: 12px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            background: rgba(8, 13, 27, 0.88);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        body.cc-page[data-page="admin"] .cc-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: #ffffff;
+            text-decoration: none;
+            font-family: "Manrope", sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .campuscare-logo {
+            width: 46px;
+            height: 46px;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .admin-brand-label {
+            background: linear-gradient(90deg, #ffffff, #a9c9ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .admin-badge {
+            margin-left: 5px;
+            padding: 5px 10px;
+            border: 1px solid rgba(155, 117, 255, 0.35);
+            border-radius: 20px;
+            background: rgba(155, 117, 255, 0.13);
+            color: #c5adff;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        body.cc-page[data-page="admin"] .cc-header-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            color: #dce6fa;
+            font-size: 14px;
+        }
+
+        #userName {
+            font-weight: 600;
+        }
+
+        body.cc-page[data-page="admin"] .cc-button {
+            padding: 10px 19px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        body.cc-page[data-page="admin"] .cc-outline {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+        }
+
+        body.cc-page[data-page="admin"] .cc-outline:hover {
+            background: rgba(155, 117, 255, 0.18);
+            border-color: var(--admin-violet);
+            transform: translateY(-2px);
+        }
+
+        /* MAIN CONTAINER */
+
+        body.cc-page[data-page="admin"] .cc-container {
+            width: min(1200px, 90%);
+            margin: 0 auto;
+            padding: 48px 0 70px;
+        }
+
+        /* PAGE HEADING */
+
+        body.cc-page[data-page="admin"] .cc-heading {
+            position: relative;
+            margin-bottom: 32px;
+            padding: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(155, 117, 255, 0.20);
+            border-radius: 20px;
+            background:
+                linear-gradient(115deg, rgba(48, 88, 180, 0.18), rgba(115, 76, 190, 0.14)),
+                rgba(17, 27, 49, 0.72);
+        }
+
+        body.cc-page[data-page="admin"] .cc-heading::after {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            right: -55px;
+            top: -100px;
+            border-radius: 50%;
+            background: rgba(139, 100, 255, 0.14);
+            filter: blur(5px);
+            pointer-events: none;
+        }
+
+        body.cc-page[data-page="admin"] .cc-eyebrow {
+            margin: 0 0 12px;
+            color: #b69aff;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        body.cc-page[data-page="admin"] .cc-heading h1 {
+            margin: 0 0 12px;
+            font-size: clamp(30px, 4vw, 43px);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+        }
+
+        body.cc-page[data-page="admin"] .cc-heading > p:last-child {
+            margin: 0;
+            color: var(--admin-muted);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* STATISTICS CARDS */
+
+        body.cc-page[data-page="admin"] .cc-stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        body.cc-page[data-page="admin"] .cc-panel {
+            min-width: 0;
+            padding: 25px;
+            margin-bottom: 22px;
+            color: var(--admin-text);
+            background: var(--admin-panel);
+            border: 1px solid var(--admin-panel-border);
+            border-radius: 17px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.16);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        body.cc-page[data-page="admin"] .cc-stats .cc-panel {
+            position: relative;
+            min-height: 135px;
+            margin: 0;
+            overflow: hidden;
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        body.cc-page[data-page="admin"] .cc-stats .cc-panel:hover {
+            transform: translateY(-5px);
+            border-color: rgba(155, 117, 255, 0.4);
+        }
+
+        body.cc-page[data-page="admin"] .cc-stats .cc-panel::after {
+            content: "";
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            right: -28px;
+            bottom: -35px;
+            border-radius: 50%;
+            background: rgba(75, 135, 255, 0.12);
+        }
+
+        body.cc-page[data-page="admin"] .cc-stats .cc-panel:nth-child(2)::after {
+            background: rgba(255, 170, 65, 0.14);
+        }
+
+        body.cc-page[data-page="admin"] .cc-stats .cc-panel:nth-child(3)::after {
+            background: rgba(65, 160, 255, 0.16);
+        }
+
+        body.cc-page[data-page="admin"] .cc-stats .cc-panel:nth-child(4)::after {
+            background: rgba(45, 205, 145, 0.14);
+        }
+
+        body.cc-page[data-page="admin"] .cc-stats .cc-panel > span {
+            display: block;
+            margin-bottom: 15px;
+            color: var(--admin-muted);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        body.cc-page[data-page="admin"] .cc-stats .cc-panel strong {
+            display: block;
+            color: #ffffff;
+            font-family: "Manrope", sans-serif;
+            font-size: 35px;
+            font-weight: 800;
+        }
+
+        body.cc-page[data-page="admin"] .cc-stats .cc-panel:nth-child(1) strong {
+            color: #7eafff;
+        }
+
+        body.cc-page[data-page="admin"] .cc-stats .cc-panel:nth-child(2) strong {
+            color: #ffbd70;
+        }
+
+        body.cc-page[data-page="admin"] .cc-stats .cc-panel:nth-child(3) strong {
+            color: #71c5ff;
+        }
+
+        body.cc-page[data-page="admin"] .cc-stats .cc-panel:nth-child(4) strong {
+            color: #55dfad;
+        }
+
+        /* SECTION PANELS */
+
+        body.cc-page[data-page="admin"] .cc-container > .cc-panel {
+            padding: 27px;
+        }
+
+        body.cc-page[data-page="admin"] .cc-panel h2 {
+            margin: 0 0 20px;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        body.cc-page[data-page="admin"] .cc-small {
+            color: var(--admin-muted);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* DYNAMIC REPORTS AND USER CONTENT */
+
+        body.cc-page[data-page="admin"] .cc-panel > div:not(.cc-stats) {
+            color: #dce6fa;
+            line-height: 1.6;
+        }
+
+        body.cc-page[data-page="admin"] .cc-panel table {
+            width: 100%;
+            border-collapse: collapse;
+            color: #eaf0ff;
+        }
+
+        body.cc-page[data-page="admin"] .cc-panel th,
+        body.cc-page[data-page="admin"] .cc-panel td {
+            padding: 13px 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+        }
+
+        body.cc-page[data-page="admin"] .cc-panel th {
+            color: #b9a2ff;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        body.cc-page[data-page="admin"] .cc-panel td {
+            color: #dce6fa;
+            font-size: 13px;
+        }
+
+        body.cc-page[data-page="admin"] .cc-panel input,
+        body.cc-page[data-page="admin"] .cc-panel select,
+        body.cc-page[data-page="admin"] .cc-panel textarea {
+            max-width: 100%;
+            padding: 10px 12px;
+            color: #ffffff;
+            background: #111d35;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 9px;
+            font-family: inherit;
+        }
+
+        body.cc-page[data-page="admin"] .cc-panel select option {
+            color: #ffffff;
+            background: #111d35;
+        }
+
+        body.cc-page[data-page="admin"] .cc-panel button {
+            padding: 9px 14px;
+            color: #ffffff;
+            background: linear-gradient(110deg, #347ff0, #8059dc);
+            border: 0;
+            border-radius: 9px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        body.cc-page[data-page="admin"] .cc-panel button:hover {
+            filter: brightness(1.15);
+            transform: translateY(-1px);
+        }
+
+        body.cc-page[data-page="admin"] .cc-panel a {
+            color: #8dbaff;
+        }
+
+        /* ANALYTICS AND ACTIVITY */
+
+        #categoryAnalytics,
+        #activityLog,
+        #userManagement,
+        #adminReports {
+            overflow-x: auto;
+        }
+
+        /* RESPONSIVE DESIGN */
+
+        @media (max-width: 850px) {
+            body.cc-page[data-page="admin"] .cc-stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            body.cc-page[data-page="admin"] .cc-container {
+                width: 92%;
+            }
+        }
+
+        @media (max-width: 550px) {
+            body.cc-page[data-page="admin"] .cc-header {
+                padding: 12px 4%;
+                flex-wrap: wrap;
+            }
+
+            body.cc-page[data-page="admin"] .cc-brand {
+                font-size: 18px;
+            }
+
+            .campuscare-logo {
+                width: 38px;
+                height: 38px;
+            }
+
+            body.cc-page[data-page="admin"] .cc-header-right {
+                gap: 10px;
+                font-size: 12px;
+            }
+
+            body.cc-page[data-page="admin"] .cc-container {
+                padding-top: 25px;
+            }
+
+            body.cc-page[data-page="admin"] .cc-heading {
+                padding: 23px;
+            }
+
+            body.cc-page[data-page="admin"] .cc-stats {
+                gap: 12px;
+            }
+
+            body.cc-page[data-page="admin"] .cc-stats .cc-panel {
+                min-height: 115px;
+                padding: 17px;
+            }
+
+            body.cc-page[data-page="admin"] .cc-stats .cc-panel strong {
+                font-size: 29px;
+            }
+
+            body.cc-page[data-page="admin"] .cc-container > .cc-panel {
+                padding: 19px;
+            }
+        }
+    </style>
 </head>
+
 <body class="cc-page" data-page="admin">
-  <header class="cc-header">
-    <a href="index.html" class="cc-brand">CampusCare</a>
-    <div class="cc-header-right">
-      <span id="userName"></span>
-      <button class="cc-button cc-outline" id="logout">Logout</button>
-    </div>
-  </header>
 
-  <main class="cc-container">
-    <div class="cc-heading">
-      <p class="cc-eyebrow">ADMINISTRATION</p>
-      <h1>Campus overview</h1>
-      <p>Monitor reports, assign teams and manage campus maintenance.</p>
-    </div>
+    <!-- HEADER -->
+    <header class="cc-header">
 
-    <section class="cc-stats">
-      <article class="cc-panel"><span>Total reports</span><strong id="totalCount">0</strong></article>
-      <article class="cc-panel"><span>Pending</span><strong id="pendingCount">0</strong></article>
-      <article class="cc-panel"><span>In progress</span><strong id="progressCount">0</strong></article>
-      <article class="cc-panel"><span>Resolved</span><strong id="resolvedCount">0</strong></article>
-    </section>
+        <a href="index.html" class="cc-brand">
+            <img
+                src="assets/campuscare-logo.png"
+                alt="CampusCare Logo"
+                class="campuscare-logo"
+            >
 
-    <section class="cc-panel">
-      <h2>All campus reports</h2>
-      <div id="adminReports">Loading reports...</div>
-    </section>
+            <span class="admin-brand-label">CampusCare</span>
+            <span class="admin-badge">ADMIN</span>
+        </a>
 
-    <section class="cc-panel">
-      <h2>Manage users and roles</h2>
-      <p class="cc-small">
-        Only approved administrators can change a user's access.
-      </p>
-      <div id="userManagement">Loading users...</div>
-    </section>
+        <div class="cc-header-right">
+            <span id="userName"></span>
+            <button class="cc-button cc-outline" id="logout">
+                Logout
+            </button>
+        </div>
 
-    <section class="cc-panel">
-      <h2>Reports by category</h2>
-      <div id="categoryAnalytics"></div>
-    </section>
+    </header>
 
-    <section class="cc-panel">
-      <h2>Activity log</h2>
-      <div id="activityLog">Loading activity...</div>
-    </section>
-  </main>
 
-  <script type="module" src="js/app.js"></script>
+    <!-- MAIN DASHBOARD -->
+    <main class="cc-container">
+
+        <!-- PAGE HEADING -->
+        <div class="cc-heading">
+
+            <p class="cc-eyebrow">ADMINISTRATION · CONTROL CENTER</p>
+
+            <h1>Campus overview</h1>
+
+            <p>
+                Monitor reports, assign teams and manage campus maintenance.
+                Keep every campus issue moving towards resolution.
+            </p>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+        <section class="cc-stats">
+
+            <article class="cc-panel">
+                <span>Total reports</span>
+                <strong id="totalCount">0</strong>
+            </article>
+
+            <article class="cc-panel">
+                <span>Pending</span>
+                <strong id="pendingCount">0</strong>
+            </article>
+
+            <article class="cc-panel">
+                <span>In progress</span>
+                <strong id="progressCount">0</strong>
+            </article>
+
+            <article class="cc-panel">
+                <span>Resolved</span>
+                <strong id="resolvedCount">0</strong>
+            </article>
+
+        </section>
+
+
+        <!-- ALL REPORTS -->
+        <section class="cc-panel">
+
+            <h2>All campus reports</h2>
+
+            <div id="adminReports">
+                Loading reports...
+            </div>
+
+        </section>
+
+
+        <!-- USER MANAGEMENT -->
+        <section class="cc-panel">
+
+            <h2>Manage users and roles</h2>
+
+            <p class="cc-small">
+                Only approved administrators can change a user's access.
+            </p>
+
+            <div id="userManagement">
+                Loading users...
+            </div>
+
+        </section>
+
+
+        <!-- CATEGORY ANALYTICS -->
+        <section class="cc-panel">
+
+            <h2>Reports by category</h2>
+
+            <div id="categoryAnalytics"></div>
+
+        </section>
+
+
+        <!-- ACTIVITY LOG -->
+        <section class="cc-panel">
+
+            <h2>Activity log</h2>
+
+            <div id="activityLog">
+                Loading activity...
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- EXISTING APPLICATION LOGIC -->
+    <script type="module" src="js/app.js"></script>
+
 </body>
 </html>
