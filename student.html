@@ -3,489 +3,643 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Dashboard | CampusCare</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CampusCare Student Dashboard - Report and track campus issues.">
 
-  <link rel="icon" type="image/png" href="assets/campuscare-logo.png">
+    <title>Student Dashboard | CampusCare</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- CampusCare Logo -->
+    <link rel="icon" type="image/png" href="assets/campuscare-logo.png">
 
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/firebase-app.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --cc-bg: #071426;
-      --cc-card: rgba(17, 36, 62, 0.78);
-      --cc-border: rgba(148, 185, 230, 0.16);
-      --cc-blue: #3988ff;
-      --cc-blue-light: #65b5ff;
-      --cc-text: #f3f7ff;
-      --cc-muted: #9eb0c9;
-    }
+    <!-- Existing CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/firebase-app.css">
 
-    * {
-      box-sizing: border-box;
-    }
+    <style>
+        :root {
+            --cc-bg: #080d1c;
+            --cc-card: rgba(19, 31, 56, 0.82);
+            --cc-border: rgba(119, 151, 210, 0.17);
+            --cc-blue: #398bff;
+            --cc-blue-light: #69b5ff;
+            --cc-purple: #9874ff;
+            --cc-green: #4de0a5;
+            --cc-text: #f3f6ff;
+            --cc-muted: #a4b1ca;
+        }
 
-    body.cc-page {
-      margin: 0;
-      min-height: 100vh;
-      color: var(--cc-text);
-      font-family: "DM Sans", sans-serif;
-      background:
-        radial-gradient(ellipse at 10% 0%, rgba(35, 105, 205, 0.25), transparent 38%),
-        radial-gradient(ellipse at 90% 20%, rgba(20, 75, 150, 0.18), transparent 35%),
-        linear-gradient(135deg, #06101f, #0a1d35 55%, #071426);
-      background-attachment: fixed;
-    }
+        * {
+            box-sizing: border-box;
+        }
 
-    .cc-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 6%;
-      background: rgba(5, 16, 31, 0.82);
-      border-bottom: 1px solid var(--cc-border);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-    }
+        body.cc-page[data-page="student"] {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--cc-text);
+            font-family: "DM Sans", sans-serif;
+            background:
+                radial-gradient(ellipse at 10% 0%, rgba(48, 105, 220, 0.20), transparent 38%),
+                radial-gradient(ellipse at 90% 12%, rgba(135, 83, 235, 0.15), transparent 35%),
+                linear-gradient(135deg, #080d1c, #0b1428 55%, #101329);
+            background-attachment: fixed;
+        }
 
-    .cc-brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 11px;
-      color: #fff;
-      text-decoration: none;
-      font-family: "Manrope", sans-serif;
-      font-size: 21px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-    }
+        body.cc-page[data-page="student"] h1,
+        body.cc-page[data-page="student"] h2,
+        body.cc-page[data-page="student"] h3 {
+            font-family: "Manrope", sans-serif;
+            color: #fff;
+        }
 
-    .cc-brand img {
-      width: 45px;
-      height: 45px;
-      object-fit: contain;
-      border-radius: 11px;
-    }
+        /* HEADER */
 
-    .cc-header-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      color: var(--cc-muted);
-      font-size: 14px;
-    }
+        body.cc-page[data-page="student"] .cc-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 13px 6%;
+            background: rgba(8, 13, 28, 0.88);
+            border-bottom: 1px solid var(--cc-border);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
 
-    .cc-container {
-      width: min(1100px, 90%);
-      margin: 0 auto;
-      padding: 48px 0 70px;
-    }
+        body.cc-page[data-page="student"] .cc-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            text-decoration: none;
+            font-family: "Manrope", sans-serif;
+            font-size: 21px;
+            font-weight: 800;
+        }
 
-    .cc-heading {
-      margin-bottom: 30px;
-    }
+        body.cc-page[data-page="student"] .cc-brand img {
+            width: 46px;
+            height: 46px;
+            object-fit: contain;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
 
-    .cc-eyebrow {
-      color: var(--cc-blue-light);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 2px;
-    }
+        body.cc-page[data-page="student"] .cc-header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: #dce6fa;
+            font-size: 14px;
+        }
 
-    .cc-heading h1 {
-      margin: 10px 0;
-      color: #fff;
-      font-family: "Manrope", sans-serif;
-      font-size: clamp(28px, 4vw, 42px);
-      font-weight: 800;
-      letter-spacing: -1.4px;
-    }
+        #userName {
+            font-weight: 600;
+        }
 
-    .cc-heading > p:last-child {
-      color: var(--cc-muted);
-      font-size: 16px;
-    }
+        /* BUTTONS */
 
-    .cc-stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-      margin-bottom: 24px;
-    }
+        body.cc-page[data-page="student"] .cc-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 44px;
+            padding: 11px 19px;
+            border-radius: 10px;
+            font-family: "DM Sans", sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+        }
 
-    .cc-panel {
-      margin-bottom: 22px;
-      padding: 26px;
-      color: var(--cc-text);
-      background: var(--cc-card);
-      border: 1px solid var(--cc-border);
-      border-radius: 20px;
-      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.16);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
+        body.cc-page[data-page="student"] .cc-button:hover {
+            transform: translateY(-2px);
+        }
 
-    .cc-stats .cc-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin: 0;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
+        body.cc-page[data-page="student"] .cc-primary {
+            color: white;
+            background: linear-gradient(110deg, #287ff4, #6957ec);
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 7px 22px rgba(36, 117, 232, 0.25);
+        }
 
-    .cc-stats .cc-panel:hover {
-      transform: translateY(-4px);
-      border-color: rgba(70, 145, 255, 0.5);
-    }
+        body.cc-page[data-page="student"] .cc-primary:hover {
+            box-shadow: 0 10px 28px rgba(36, 117, 232, 0.4);
+        }
 
-    .cc-stats span {
-      color: var(--cc-muted);
-      font-size: 14px;
-      font-weight: 600;
-    }
+        body.cc-page[data-page="student"] .cc-outline {
+            color: #dceaff;
+            background: rgba(47, 105, 180, 0.12);
+            border: 1px solid rgba(100, 165, 255, 0.35);
+        }
 
-    .cc-stats strong {
-      color: #fff;
-      font-family: "Manrope", sans-serif;
-      font-size: 34px;
-      font-weight: 800;
-    }
+        body.cc-page[data-page="student"] .cc-outline:hover {
+            background: rgba(47, 105, 180, 0.25);
+        }
 
-    .cc-panel h2 {
-      margin: 0 0 22px;
-      color: #fff;
-      font-family: "Manrope", sans-serif;
-      font-size: 21px;
-      font-weight: 800;
-    }
+        /* MAIN CONTAINER */
 
-    form label {
-      display: block;
-      margin: 17px 0 8px;
-      color: #dce8fa;
-      font-size: 14px;
-      font-weight: 700;
-    }
+        body.cc-page[data-page="student"] .cc-container {
+            width: min(1100px, 90%);
+            margin: 0 auto;
+            padding: 48px 0 70px;
+        }
 
-    form input:not([type="file"]),
-    form select,
-    form textarea {
-      width: 100%;
-      min-height: 48px;
-      padding: 13px 15px;
-      color: #f4f8ff;
-      background: rgba(5, 17, 34, 0.75);
-      border: 1px solid rgba(150, 180, 220, 0.2);
-      border-radius: 11px;
-      outline: none;
-      font: inherit;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
+        /* PAGE HEADING */
 
-    form input[type="file"] {
-      display: block;
-      width: 100%;
-      padding: 13px;
-      color: var(--cc-muted);
-      background: rgba(5, 17, 34, 0.75);
-      border: 1px dashed rgba(150, 180, 220, 0.3);
-      border-radius: 11px;
-      font: inherit;
-    }
+        body.cc-page[data-page="student"] .cc-heading {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(77, 143, 255, 0.2);
+            border-radius: 19px;
+            background:
+                linear-gradient(115deg, rgba(48, 88, 180, 0.17), rgba(115, 76, 190, 0.11)),
+                rgba(17, 27, 49, 0.72);
+        }
 
-    form input:focus,
-    form select:focus,
-    form textarea:focus {
-      border-color: var(--cc-blue);
-      box-shadow: 0 0 0 3px rgba(57, 136, 255, 0.15);
-    }
+        body.cc-page[data-page="student"] .cc-heading::after {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            right: -65px;
+            top: -105px;
+            border-radius: 50%;
+            background: rgba(57, 139, 255, 0.13);
+            pointer-events: none;
+        }
 
-    form input::placeholder,
-    form textarea::placeholder {
-      color: #7186a4;
-    }
+        body.cc-page[data-page="student"] .cc-eyebrow {
+            margin: 0;
+            color: #80b4ff;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
 
-    form select option {
-      color: #fff;
-      background: #10243e;
-    }
+        body.cc-page[data-page="student"] .cc-heading h1 {
+            margin: 10px 0;
+            color: #fff;
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 800;
+            letter-spacing: -1.4px;
+        }
 
-    form textarea {
-      min-height: 115px;
-      resize: vertical;
-    }
+        body.cc-page[data-page="student"] .cc-heading > p:last-child {
+            margin: 0;
+            color: var(--cc-muted);
+            font-size: 15px;
+            line-height: 1.7;
+        }
 
-    .cc-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      min-height: 44px;
-      padding: 11px 19px;
-      border-radius: 10px;
-      font-family: "DM Sans", sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
-    }
+        /* STATISTICS */
 
-    .cc-button:hover {
-      transform: translateY(-2px);
-    }
+        body.cc-page[data-page="student"] .cc-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 24px;
+        }
 
-    .cc-primary {
-      color: white;
-      background: linear-gradient(135deg, #2878ed, #48a3ff);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 7px 22px rgba(36, 117, 232, 0.25);
-    }
+        body.cc-page[data-page="student"] .cc-panel {
+            min-width: 0;
+            margin-bottom: 22px;
+            padding: 26px;
+            color: var(--cc-text);
+            background: var(--cc-card);
+            border: 1px solid var(--cc-border);
+            border-radius: 18px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.16);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
 
-    .cc-primary:hover {
-      box-shadow: 0 10px 28px rgba(36, 117, 232, 0.4);
-    }
+        body.cc-page[data-page="student"] .cc-stats .cc-panel {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 0;
+            overflow: hidden;
+            transition: transform 0.25s, border-color 0.25s;
+        }
 
-    .cc-outline {
-      color: #dceaff;
-      background: rgba(47, 105, 180, 0.12);
-      border: 1px solid rgba(100, 165, 255, 0.35);
-    }
+        body.cc-page[data-page="student"] .cc-stats .cc-panel:hover {
+            transform: translateY(-5px);
+            border-color: rgba(70, 145, 255, 0.5);
+        }
 
-    .cc-outline:hover {
-      background: rgba(47, 105, 180, 0.25);
-    }
+        body.cc-page[data-page="student"] .cc-stats .cc-panel::after {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            right: -35px;
+            bottom: -40px;
+            border-radius: 50%;
+            background: rgba(57, 139, 255, 0.12);
+        }
 
-    #reportForm .cc-primary {
-      width: 100%;
-      margin-top: 22px;
-      min-height: 50px;
-      font-size: 15px;
-    }
+        body.cc-page[data-page="student"] .cc-stats .cc-panel:nth-child(2)::after {
+            background: rgba(155, 116, 255, 0.14);
+        }
 
-    #getLocation {
-      margin-top: 12px;
-    }
+        body.cc-page[data-page="student"] .cc-stats .cc-panel:nth-child(3)::after {
+            background: rgba(77, 224, 165, 0.13);
+        }
 
-    .cc-small {
-      color: var(--cc-muted);
-      font-size: 13px;
-      line-height: 1.6;
-    }
+        body.cc-page[data-page="student"] .cc-stats span {
+            color: var(--cc-muted);
+            font-size: 14px;
+            font-weight: 600;
+        }
 
-    .cc-message {
-      color: var(--cc-blue-light);
-      font-size: 14px;
-      line-height: 1.6;
-    }
+        body.cc-page[data-page="student"] .cc-stats strong {
+            color: #7eb3ff;
+            font-family: "Manrope", sans-serif;
+            font-size: 35px;
+            font-weight: 800;
+        }
 
-    #myReports,
-    #notifications {
-      color: var(--cc-muted);
-      line-height: 1.7;
-    }
+        body.cc-page[data-page="student"] .cc-stats .cc-panel:nth-child(2) strong {
+            color: #b69aff;
+        }
 
-    #myReports > *,
-    #notifications > * {
-      margin-bottom: 12px;
-    }
+        body.cc-page[data-page="student"] .cc-stats .cc-panel:nth-child(3) strong {
+            color: #55dfad;
+        }
 
-    @media (max-width: 650px) {
-      .cc-header {
-        padding: 12px 5%;
-      }
+        /* FORM AND CONTENT PANELS */
 
-      .cc-brand {
-        font-size: 18px;
-      }
+        body.cc-page[data-page="student"] .cc-panel h2 {
+            margin: 0 0 22px;
+            color: #fff;
+            font-size: 21px;
+            font-weight: 800;
+        }
 
-      .cc-brand img {
-        width: 39px;
-        height: 39px;
-      }
+        body.cc-page[data-page="student"] form label {
+            display: block;
+            margin: 19px 0 8px;
+            color: #dce8fa;
+            font-size: 14px;
+            font-weight: 700;
+        }
 
-      .cc-header-right {
-        gap: 9px;
-        font-size: 12px;
-      }
+        body.cc-page[data-page="student"] form input:not([type="file"]),
+        body.cc-page[data-page="student"] form select,
+        body.cc-page[data-page="student"] form textarea {
+            width: 100%;
+            min-height: 48px;
+            padding: 13px 15px;
+            color: #f4f8ff;
+            background: rgba(5, 17, 34, 0.75);
+            border: 1px solid rgba(150, 180, 220, 0.2);
+            border-radius: 11px;
+            outline: none;
+            font: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
 
-      .cc-container {
-        width: 92%;
-        padding-top: 32px;
-      }
+        body.cc-page[data-page="student"] form input[type="file"] {
+            display: block;
+            width: 100%;
+            padding: 13px;
+            color: var(--cc-muted);
+            background: rgba(5, 17, 34, 0.75);
+            border: 1px dashed rgba(150, 180, 220, 0.3);
+            border-radius: 11px;
+            font: inherit;
+        }
 
-      .cc-stats {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
+        body.cc-page[data-page="student"] form input:focus,
+        body.cc-page[data-page="student"] form select:focus,
+        body.cc-page[data-page="student"] form textarea:focus {
+            border-color: var(--cc-blue);
+            box-shadow: 0 0 0 3px rgba(57, 136, 255, 0.15);
+        }
 
-      .cc-stats .cc-panel {
-        padding: 19px;
-      }
+        body.cc-page[data-page="student"] form input::placeholder,
+        body.cc-page[data-page="student"] form textarea::placeholder {
+            color: #7186a4;
+        }
 
-      .cc-stats strong {
-        font-size: 28px;
-      }
+        body.cc-page[data-page="student"] form select option {
+            color: #fff;
+            background: #10243e;
+        }
 
-      .cc-panel {
-        padding: 20px;
-        border-radius: 16px;
-      }
-    }
-  </style>
+        body.cc-page[data-page="student"] form textarea {
+            min-height: 115px;
+            resize: vertical;
+        }
+
+        body.cc-page[data-page="student"] #reportForm .cc-primary {
+            width: 100%;
+            margin-top: 22px;
+            min-height: 50px;
+            font-size: 15px;
+        }
+
+        body.cc-page[data-page="student"] #getLocation {
+            margin-top: 12px;
+        }
+
+        /* MESSAGES */
+
+        body.cc-page[data-page="student"] .cc-small {
+            color: var(--cc-muted);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        body.cc-page[data-page="student"] .cc-message {
+            color: var(--cc-blue-light);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        body.cc-page[data-page="student"] #locationMessage {
+            margin-top: 8px;
+        }
+
+        body.cc-page[data-page="student"] #reportMessage {
+            margin-top: 12px;
+        }
+
+        /* REPORTS AND NOTIFICATIONS */
+
+        body.cc-page[data-page="student"] #myReports,
+        body.cc-page[data-page="student"] #notifications {
+            color: var(--cc-muted);
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        body.cc-page[data-page="student"] #myReports > *,
+        body.cc-page[data-page="student"] #notifications > * {
+            margin-bottom: 12px;
+        }
+
+        body.cc-page[data-page="student"] #myReports button,
+        body.cc-page[data-page="student"] #notifications button {
+            font-family: inherit;
+        }
+
+        body.cc-page[data-page="student"] #myReports a,
+        body.cc-page[data-page="student"] #notifications a {
+            color: #83b7ff;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 650px) {
+            body.cc-page[data-page="student"] .cc-header {
+                padding: 12px 5%;
+            }
+
+            body.cc-page[data-page="student"] .cc-brand {
+                font-size: 18px;
+            }
+
+            body.cc-page[data-page="student"] .cc-brand img {
+                width: 39px;
+                height: 39px;
+            }
+
+            body.cc-page[data-page="student"] .cc-header-right {
+                gap: 9px;
+                font-size: 12px;
+            }
+
+            body.cc-page[data-page="student"] .cc-container {
+                width: 92%;
+                padding-top: 30px;
+            }
+
+            body.cc-page[data-page="student"] .cc-heading {
+                padding: 22px;
+            }
+
+            body.cc-page[data-page="student"] .cc-stats {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            body.cc-page[data-page="student"] .cc-stats .cc-panel {
+                padding: 19px;
+            }
+
+            body.cc-page[data-page="student"] .cc-stats strong {
+                font-size: 28px;
+            }
+
+            body.cc-page[data-page="student"] .cc-panel {
+                padding: 20px;
+                border-radius: 16px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            body.cc-page[data-page="student"] .cc-header-right {
+                gap: 6px;
+            }
+
+            body.cc-page[data-page="student"] .cc-header-right .cc-button {
+                padding: 8px 11px;
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 
 <body class="cc-page" data-page="student">
 
-  <header class="cc-header">
-    <a href="index.html" class="cc-brand">
-      <img src="assets/campuscare-logo.png" alt="CampusCare Logo">
-      <span>CampusCare</span>
-    </a>
+    <!-- HEADER -->
+    <header class="cc-header">
 
-    <div class="cc-header-right">
-      <span id="userName"></span>
-      <button class="cc-button cc-outline" id="logout">
-        Logout
-      </button>
-    </div>
-  </header>
+        <a href="index.html" class="cc-brand">
+            <img src="assets/campuscare-logo.png" alt="CampusCare Logo">
+            <span>CampusCare</span>
+        </a>
 
-  <main class="cc-container">
+        <div class="cc-header-right">
+            <span id="userName"></span>
 
-    <div class="cc-heading">
-      <p class="cc-eyebrow">STUDENT PORTAL</p>
-      <h1>Report a campus issue</h1>
-      <p>Help us make your campus safer and better.</p>
-    </div>
+            <button class="cc-button cc-outline" id="logout">
+                Logout
+            </button>
+        </div>
 
-    <section class="cc-stats">
+    </header>
 
-      <article class="cc-panel">
-        <span>Total reports</span>
-        <strong id="totalCount">0</strong>
-      </article>
 
-      <article class="cc-panel">
-        <span>In progress</span>
-        <strong id="progressCount">0</strong>
-      </article>
+    <!-- MAIN DASHBOARD -->
+    <main class="cc-container">
 
-      <article class="cc-panel">
-        <span>Resolved</span>
-        <strong id="resolvedCount">0</strong>
-      </article>
+        <!-- PAGE HEADING -->
+        <div class="cc-heading">
 
-    </section>
+            <p class="cc-eyebrow">STUDENT PORTAL</p>
 
-    <section class="cc-panel">
+            <h1>Report a campus issue</h1>
 
-      <h2>Submit a new report</h2>
+            <p>Help us make your campus safer and better.</p>
 
-      <form id="reportForm">
+        </div>
 
-        <label>Issue title</label>
-        <input
-          name="title"
-          required
-          maxlength="100"
-          placeholder="Example: Broken classroom fan"
-        >
 
-        <label>Category</label>
-        <select name="category" required>
-          <option value="">Select category</option>
-          <option>Electrical</option>
-          <option>Plumbing</option>
-          <option>Cleanliness</option>
-          <option>Furniture</option>
-          <option>Infrastructure</option>
-          <option>Wi-Fi / Network</option>
-          <option>Other</option>
-        </select>
+        <!-- STATISTICS -->
+        <section class="cc-stats">
 
-        <label>Location</label>
-        <input
-          name="location"
-          required
-          maxlength="150"
-          placeholder="Building, floor, room or area"
-        >
+            <article class="cc-panel">
+                <span>Total reports</span>
+                <strong id="totalCount">0</strong>
+            </article>
 
-        <button
-          type="button"
-          id="getLocation"
-          class="cc-button cc-outline"
-        >
-          Use my current location
-        </button>
+            <article class="cc-panel">
+                <span>In progress</span>
+                <strong id="progressCount">0</strong>
+            </article>
 
-        <p id="locationMessage" class="cc-small"></p>
+            <article class="cc-panel">
+                <span>Resolved</span>
+                <strong id="resolvedCount">0</strong>
+            </article>
 
-        <label>Priority</label>
-        <select name="priority" required>
-          <option value="Low">Low</option>
-          <option value="Medium" selected>Medium</option>
-          <option value="High">High</option>
-          <option value="Urgent">Urgent</option>
-        </select>
+        </section>
 
-        <label>Description</label>
-        <textarea
-          name="description"
-          required
-          maxlength="1500"
-          rows="4"
-          placeholder="Explain the issue clearly..."
-        ></textarea>
 
-        <label>Upload an image (optional)</label>
-        <input
-          type="file"
-          name="image"
-          accept="image/png,image/jpeg,image/webp"
-        >
+        <!-- SUBMIT REPORT -->
+        <section class="cc-panel">
 
-        <button class="cc-button cc-primary" type="submit">
-          Submit report
-        </button>
+            <h2>Submit a new report</h2>
 
-        <p
-          id="reportMessage"
-          class="cc-message"
-          aria-live="polite"
-        ></p>
+            <form id="reportForm">
 
-      </form>
+                <label>Issue title</label>
 
-    </section>
+                <input
+                    name="title"
+                    required
+                    maxlength="100"
+                    placeholder="Example: Broken classroom fan"
+                >
 
-    <section class="cc-panel">
-      <h2>My reports</h2>
-      <div id="myReports">
-        Loading reports...
-      </div>
-    </section>
+                <label>Category</label>
 
-    <section class="cc-panel">
-      <h2>Notifications</h2>
-      <div id="notifications">
-        Loading notifications...
-      </div>
-    </section>
+                <select name="category" required>
+                    <option value="">Select category</option>
+                    <option>Electrical</option>
+                    <option>Plumbing</option>
+                    <option>Cleanliness</option>
+                    <option>Furniture</option>
+                    <option>Infrastructure</option>
+                    <option>Wi-Fi / Network</option>
+                    <option>Other</option>
+                </select>
 
-  </main>
+                <label>Location</label>
 
-  <script type="module" src="js/app.js"></script>
+                <input
+                    name="location"
+                    required
+                    maxlength="150"
+                    placeholder="Building, floor, room or area"
+                >
+
+                <button
+                    type="button"
+                    id="getLocation"
+                    class="cc-button cc-outline"
+                >
+                    Use my current location
+                </button>
+
+                <p id="locationMessage" class="cc-small"></p>
+
+                <label>Priority</label>
+
+                <select name="priority" required>
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+                    <option value="Urgent">Urgent</option>
+                </select>
+
+                <label>Description</label>
+
+                <textarea
+                    name="description"
+                    required
+                    maxlength="1500"
+                    rows="4"
+                    placeholder="Explain the issue clearly..."
+                ></textarea>
+
+                <label>Upload an image (optional)</label>
+
+                <input
+                    type="file"
+                    name="image"
+                    accept="image/png,image/jpeg,image/webp"
+                >
+
+                <button class="cc-button cc-primary" type="submit">
+                    Submit report
+                </button>
+
+                <p
+                    id="reportMessage"
+                    class="cc-message"
+                    aria-live="polite"
+                ></p>
+
+            </form>
+
+        </section>
+
+
+        <!-- MY REPORTS -->
+        <section class="cc-panel">
+
+            <h2>My reports</h2>
+
+            <div id="myReports">
+                Loading reports...
+            </div>
+
+        </section>
+
+
+        <!-- NOTIFICATIONS -->
+        <section class="cc-panel">
+
+            <h2>Notifications</h2>
+
+            <div id="notifications">
+                Loading notifications...
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- EXISTING APPLICATION LOGIC -->
+    <script type="module" src="js/app.js"></script>
 
 </body>
 </html>
