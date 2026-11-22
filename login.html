@@ -28,9 +28,10 @@
       margin: 0;
       font-family: 'DM Sans', sans-serif;
       background:
-        radial-gradient(circle at 15% 20%, rgba(46, 117, 255, 0.16), transparent 35%),
-        radial-gradient(circle at 85% 80%, rgba(0, 190, 255, 0.12), transparent 35%),
-        linear-gradient(135deg, #07152f, #102d5c 55%, #071b3d);
+        radial-gradient(circle at 12% 18%, rgba(48, 112, 255, 0.22), transparent 34%),
+        radial-gradient(circle at 88% 82%, rgba(0, 195, 255, 0.16), transparent 32%),
+        radial-gradient(circle at 75% 15%, rgba(139, 92, 246, 0.13), transparent 30%),
+        linear-gradient(135deg, #050d20 0%, #0b1d3d 48%, #101d45 100%);
       color: #ffffff;
     }
 
@@ -39,9 +40,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(255, 255, 255, 0.04);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(15px);
+      background: rgba(8, 20, 45, 0.65);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+      backdrop-filter: blur(18px);
     }
 
     .cc-brand {
@@ -63,14 +64,14 @@
     }
 
     .cc-link {
-      color: #d9e7ff;
+      color: #c8d9f5;
       text-decoration: none;
       font-weight: 600;
       transition: 0.2s;
     }
 
     .cc-link:hover {
-      color: #58baff;
+      color: #60c5ff;
     }
 
     .cc-auth {
@@ -79,38 +80,74 @@
       justify-content: center;
       align-items: center;
       padding: 45px 20px;
+      position: relative;
+      overflow: hidden;
     }
 
     .cc-auth-panel {
       width: 100%;
-      max-width: 450px;
-      padding: 42px 38px;
+      max-width: 460px;
+      padding: 43px 38px;
       text-align: center;
-      background: rgba(255, 255, 255, 0.09);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 25px;
-      backdrop-filter: blur(22px);
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.105),
+        rgba(255, 255, 255, 0.045)
+      );
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 26px;
+      backdrop-filter: blur(24px);
+      box-shadow:
+        0 25px 75px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .cc-auth-panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 15%;
+      width: 70%;
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        #318bff,
+        #a78bfa,
+        transparent
+      );
     }
 
     .cc-logo {
-      width: 90px;
-      height: 90px;
+      width: 94px;
+      height: 94px;
       margin: 0 auto 22px;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 8px;
+      border-radius: 24px;
+      background: linear-gradient(
+        145deg,
+        rgba(49, 139, 255, 0.18),
+        rgba(139, 92, 246, 0.16)
+      );
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 12px 35px rgba(36, 111, 255, 0.15);
     }
 
     .cc-logo img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      border-radius: 18px;
+      border-radius: 16px;
     }
 
     .cc-eyebrow {
-      color: #62c3ff;
+      display: inline-block;
+      color: #69c8ff;
       font-size: 11px;
       font-weight: 800;
       letter-spacing: 2px;
@@ -127,28 +164,35 @@
     }
 
     .cc-auth-panel > p {
-      color: #c6d5ed;
+      color: #c5d5ef;
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 1.8;
     }
 
     #googleLogin {
       width: 100%;
-      min-height: 53px;
+      min-height: 54px;
       margin: 25px 0 12px;
-      border: none;
-      border-radius: 12px;
-      background: linear-gradient(100deg, #1675f9, #08a9e9);
-      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 13px;
+      background: linear-gradient(100deg, #176cf5, #087fe9 55%, #08a9e9);
+      color: #ffffff;
+      font-family: 'DM Sans', sans-serif;
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+      box-shadow: 0 9px 25px rgba(0, 112, 255, 0.2);
     }
 
     #googleLogin:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(0, 140, 255, 0.3);
+      filter: brightness(1.1);
+      box-shadow: 0 13px 30px rgba(0, 140, 255, 0.32);
+    }
+
+    #googleLogin:active {
+      transform: translateY(0);
     }
 
     #googleLogin:disabled {
@@ -161,12 +205,13 @@
       color: #ffffff;
       font-size: 13px;
       min-height: 20px;
+      line-height: 1.5;
     }
 
     .cc-small {
-      color: #aebfd9;
+      color: #aebfda;
       font-size: 12px;
-      line-height: 1.7;
+      line-height: 1.8;
       margin-top: 22px;
     }
 
@@ -176,6 +221,7 @@
       border-top: 1px solid rgba(255, 255, 255, 0.12);
       color: #9fb4d2;
       font-size: 11px;
+      line-height: 1.8;
     }
 
     @media (max-width: 500px) {
@@ -190,6 +236,19 @@
       .cc-header {
         padding: 15px 5%;
       }
+
+      .cc-brand {
+        font-size: 18px;
+      }
+
+      .cc-brand img {
+        width: 39px;
+        height: 39px;
+      }
+
+      .cc-link {
+        font-size: 13px;
+      }
     }
   </style>
 </head>
@@ -200,10 +259,7 @@
   <header class="cc-header">
 
     <a href="index.html" class="cc-brand">
-      <img
-        src="assets/campuscare-logo.png"
-        alt="CampusCare Logo"
-      >
+      <img src="assets/campuscare-logo.png" alt="CampusCare Logo">
       <span>CampusCare</span>
     </a>
 
@@ -213,17 +269,13 @@
 
   </header>
 
-
   <!-- LOGIN SECTION -->
   <main class="cc-auth">
 
     <section class="cc-panel cc-auth-panel">
 
       <div class="cc-logo">
-        <img
-          src="assets/campuscare-logo.png"
-          alt="CampusCare Logo"
-        >
+        <img src="assets/campuscare-logo.png" alt="CampusCare Logo">
       </div>
 
       <p class="cc-eyebrow">
@@ -237,7 +289,6 @@
         Sign in to report, assign and resolve campus issues.
       </p>
 
-
       <!-- GOOGLE LOGIN -->
       <button id="googleLogin" class="cc-button cc-primary">
         Continue with Google →
@@ -245,12 +296,10 @@
 
       <p id="message" class="cc-message" aria-live="polite"></p>
 
-
       <p class="cc-small">
         Students can sign in using their Google account.
         Admin and worker access requires approval.
       </p>
-
 
       <div class="login-footer">
         A smarter way to build a better campus.
@@ -261,7 +310,6 @@
     </section>
 
   </main>
-
 
   <!-- APPLICATION SCRIPT -->
   <script>
