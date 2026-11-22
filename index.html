@@ -413,6 +413,1461 @@
 
         </section>
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CampusCare - Report, assign and resolve campus maintenance issues at MIT AOE.">
+
+    <title>CampusCare | Report. Assign. Resolve.</title>
+
+    <link rel="icon" type="image/png" href="assets/campuscare-logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* =========================================
+           CAMPUSCARE HOMEPAGE - NEW THEME
+           Navy + Electric Blue + Violet
+        ========================================= */
+
+        body.cc-home {
+            --bg: #080d1c;
+            --bg-light: #101a31;
+            --card: rgba(19, 31, 56, 0.78);
+            --card-border: rgba(119, 151, 210, 0.17);
+            --blue: #398bff;
+            --blue-light: #69b5ff;
+            --purple: #9874ff;
+            --text: #f3f6ff;
+            --muted: #a4b1ca;
+
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        body.cc-home * {
+            box-sizing: border-box;
+        }
+
+        body.cc-home h1,
+        body.cc-home h2,
+        body.cc-home h3 {
+            font-family: 'Manrope', sans-serif;
+        }
+
+        body.cc-home a {
+            text-decoration: none;
+        }
+
+        body.cc-home p {
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        /* NAVBAR */
+
+        body.cc-home .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            min-height: 76px;
+            padding: 12px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            background: rgba(8, 13, 28, 0.88);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(120, 150, 210, 0.13);
+        }
+
+        body.cc-home .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #ffffff;
+            font-family: 'Manrope', sans-serif;
+            font-size: 23px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        body.cc-home .campuscare-logo {
+            display: block;
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        body.cc-home .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        body.cc-home .nav-links a {
+            color: #c0cbe0;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.25s;
+        }
+
+        body.cc-home .nav-links a:hover {
+            color: var(--blue-light);
+        }
+
+        body.cc-home .nav-login {
+            padding: 12px 21px;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 10px;
+            background: linear-gradient(110deg, #2677ed, #7655e9);
+            box-shadow: 0 5px 22px rgba(57, 139, 255, 0.2);
+            transition: 0.3s;
+        }
+
+        body.cc-home .nav-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(57, 139, 255, 0.35);
+        }
+
+        body.cc-home .menu-toggle {
+            display: none;
+            background: rgba(255,255,255,0.08);
+            color: white;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        /* HERO */
+
+        body.cc-home .hero {
+            min-height: 690px;
+            padding: 100px 8% 90px;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            align-items: center;
+            gap: 65px;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse at 78% 28%, rgba(63, 92, 220, 0.19), transparent 40%),
+                radial-gradient(ellipse at 15% 80%, rgba(26, 119, 237, 0.13), transparent 40%),
+                linear-gradient(135deg, #080d1c 0%, #0d1730 55%, #11122d 100%);
+        }
+
+        body.cc-home .hero::before {
+            content: "";
+            position: absolute;
+            width: 430px;
+            height: 430px;
+            border: 1px solid rgba(92, 144, 255, 0.09);
+            border-radius: 50%;
+            right: -130px;
+            top: -180px;
+            pointer-events: none;
+        }
+
+        body.cc-home .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 650px;
+        }
+
+        body.cc-home .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            margin-bottom: 25px;
+            color: #a8c9ff;
+            background: rgba(52, 125, 255, 0.1);
+            border: 1px solid rgba(80, 148, 255, 0.24);
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+        }
+
+        body.cc-home .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #42e5a2;
+            box-shadow: 0 0 12px #42e5a2;
+        }
+
+        body.cc-home .hero h1 {
+            color: white;
+            font-size: clamp(43px, 5.1vw, 68px);
+            line-height: 1.12;
+            letter-spacing: -2.8px;
+            font-weight: 800;
+            margin: 0 0 25px;
+        }
+
+        body.cc-home .hero h1 span {
+            background: linear-gradient(100deg, #54a5ff, #9a7bff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        body.cc-home .hero-description {
+            max-width: 570px;
+            color: #aebbd2;
+            font-size: 16px;
+            line-height: 1.9;
+            margin-bottom: 32px;
+        }
+
+        body.cc-home .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        body.cc-home .btn-primary,
+        body.cc-home .btn-secondary {
+            min-height: 52px;
+            padding: 15px 23px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        body.cc-home .btn-primary {
+            color: white;
+            background: linear-gradient(110deg, #287ff4, #6957ec);
+            box-shadow: 0 8px 25px rgba(48, 119, 240, 0.23);
+        }
+
+        body.cc-home .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(48, 119, 240, 0.4);
+        }
+
+        body.cc-home .btn-secondary {
+            color: #e0e9ff;
+            background: rgba(255,255,255,0.045);
+            border: 1px solid rgba(148, 171, 215, 0.24);
+        }
+
+        body.cc-home .btn-secondary:hover {
+            background: rgba(67, 124, 235, 0.14);
+            border-color: var(--blue);
+        }
+
+        body.cc-home .hero-trust {
+            margin-top: 32px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            color: #b7c4dc;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        body.cc-home .trust-icon {
+            color: #54dba4;
+            font-weight: 900;
+            margin-left: 8px;
+        }
+
+        /* DASHBOARD PREVIEW */
+
+        body.cc-home .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 0;
+        }
+
+        body.cc-home .visual-glow {
+            position: absolute;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            background: rgba(54, 112, 255, 0.19);
+            filter: blur(85px);
+            pointer-events: none;
+        }
+
+        body.cc-home .dashboard-preview {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 490px;
+            padding: 27px;
+            border: 1px solid rgba(139, 169, 231, 0.24);
+            border-radius: 20px;
+            background: linear-gradient(145deg, rgba(25, 40, 72, 0.96), rgba(13, 23, 46, 0.96));
+            box-shadow: 0 25px 80px rgba(0,0,0,0.4);
+        }
+
+        body.cc-home .preview-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding-bottom: 23px;
+            border-bottom: 1px solid rgba(148, 171, 215, 0.15);
+            margin-bottom: 22px;
+        }
+
+        body.cc-home .preview-label {
+            color: #80aaff;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-bottom: 7px;
+        }
+
+        body.cc-home .preview-top h3 {
+            color: white;
+            font-size: 21px;
+            margin: 0;
+        }
+
+        body.cc-home .live-indicator {
+            color: #53e4a7;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        body.cc-home .preview-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 17px;
+            margin-bottom: 13px;
+            border: 1px solid rgba(148, 171, 215, 0.13);
+            border-radius: 13px;
+            background: rgba(255,255,255,0.035);
+            transition: 0.25s;
+        }
+
+        body.cc-home .preview-card:hover {
+            transform: translateX(5px);
+            background: rgba(65, 117, 220, 0.12);
+            border-color: rgba(91, 150, 255, 0.35);
+        }
+
+        body.cc-home .preview-icon {
+            width: 46px;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 21px;
+            flex-shrink: 0;
+        }
+
+        body.cc-home .preview-icon.green {
+            background: rgba(34, 197, 139, 0.16);
+            color: #54e2ad;
+        }
+
+        body.cc-home .preview-icon.blue {
+            background: rgba(53, 135, 255, 0.18);
+            color: #70b5ff;
+        }
+
+        body.cc-home .preview-icon.orange {
+            background: rgba(255, 164, 66, 0.16);
+            color: #ffb45e;
+        }
+
+        body.cc-home .preview-card strong {
+            display: block;
+            color: #f3f6ff;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        body.cc-home .preview-card p {
+            color: #9fadc7;
+            font-size: 11px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        body.cc-home .preview-arrow {
+            color: #7d9ed6;
+            margin-left: auto;
+            font-size: 20px;
+        }
+
+        body.cc-home .preview-footer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-top: 15px;
+            color: #aebbd2;
+            font-size: 11px;
+            border-top: 1px solid rgba(148, 171, 215, 0.15);
+        }
+
+        body.cc-home .footer-check {
+            color: #51dfa4;
+            font-size: 17px;
+        }
+
+        body.cc-home .floating-tag {
+            position: absolute;
+            z-index: 3;
+            padding: 12px 16px;
+            color: #e8efff;
+            background: rgba(20, 34, 62, 0.95);
+            border: 1px solid rgba(133, 168, 238, 0.25);
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.7px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        body.cc-home .tag-one {
+            top: 5%;
+            right: -3%;
+        }
+
+        body.cc-home .tag-one span {
+            color: #4ee2a7;
+        }
+
+        body.cc-home .tag-two {
+            bottom: 5%;
+            left: -5%;
+        }
+
+        body.cc-home .tag-two span {
+            color: #76aaff;
+        }
+
+        /* TRUST STRIP */
+
+        body.cc-home .trust-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 28px 8%;
+            background: #111b32;
+            border-top: 1px solid rgba(124, 156, 216, 0.12);
+            border-bottom: 1px solid rgba(124, 156, 216, 0.12);
+        }
+
+        body.cc-home .trust-strip > div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 11px;
+            color: #c8d5ed;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        body.cc-home .strip-icon {
+            color: #72aaff;
+            font-size: 23px;
+        }
+
+        /* GENERAL SECTIONS */
+
+        body.cc-home .section {
+            padding: 95px 8%;
+            position: relative;
+        }
+
+        body.cc-home .about-section {
+            background:
+                radial-gradient(ellipse at 90% 40%, rgba(87, 91, 213, 0.09), transparent 35%),
+                #0b1224;
+        }
+
+        body.cc-home .process-section {
+            background:
+                radial-gradient(ellipse at 10% 60%, rgba(34, 116, 235, 0.10), transparent 35%),
+                #0e172b;
+        }
+
+        body.cc-home .categories-section {
+            background:
+                radial-gradient(ellipse at 85% 25%, rgba(123, 87, 232, 0.10), transparent 35%),
+                #0b1224;
+        }
+
+        body.cc-home .section-heading {
+            max-width: 720px;
+            margin: 0 auto 52px;
+            text-align: center;
+        }
+
+        body.cc-home .section-label {
+            display: inline-block;
+            color: #79aaff;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        body.cc-home .section-heading h2 {
+            color: white;
+            font-size: clamp(30px, 4vw, 43px);
+            line-height: 1.25;
+            letter-spacing: -1.3px;
+            margin: 0 0 18px;
+        }
+
+        body.cc-home .section-heading h2 span {
+            background: linear-gradient(100deg, #56a5ff, #9b7aff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        body.cc-home .section-heading p {
+            max-width: 650px;
+            margin: 0 auto;
+            font-size: 14px;
+        }
+
+        /* ABOUT CARDS */
+
+        body.cc-home .about-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        body.cc-home .info-card {
+            padding: 30px;
+            background: linear-gradient(145deg, rgba(24, 39, 69, 0.85), rgba(15, 26, 49, 0.9));
+            border: 1px solid var(--card-border);
+            border-radius: 17px;
+            transition: 0.3s;
+        }
+
+        body.cc-home .info-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(81, 145, 255, 0.5);
+            box-shadow: 0 18px 35px rgba(0,0,0,0.2);
+        }
+
+        body.cc-home .info-icon {
+            width: 49px;
+            height: 49px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 22px;
+            border-radius: 13px;
+            color: #8bb8ff;
+            background: rgba(54, 125, 255, 0.15);
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        body.cc-home .info-card:nth-child(2) .info-icon {
+            color: #b69aff;
+            background: rgba(146, 105, 255, 0.15);
+        }
+
+        body.cc-home .info-card:nth-child(3) .info-icon {
+            color: #5de2ae;
+            background: rgba(48, 210, 150, 0.13);
+        }
+
+        body.cc-home .info-card h3 {
+            color: white;
+            font-size: 19px;
+            margin: 0 0 12px;
+        }
+
+        body.cc-home .info-card p {
+            font-size: 13px;
+            margin: 0;
+        }
+
+        /* PROCESS */
+
+        body.cc-home .process-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 23px;
+        }
+
+        body.cc-home .process-step {
+            position: relative;
+            padding: 35px 28px;
+            text-align: center;
+            background: rgba(21, 35, 64, 0.75);
+            border: 1px solid var(--card-border);
+            border-radius: 17px;
+            transition: 0.3s;
+        }
+
+        body.cc-home .process-step:hover {
+            transform: translateY(-7px);
+            border-color: rgba(111, 148, 255, 0.45);
+        }
+
+        body.cc-home .step-number {
+            position: absolute;
+            top: 18px;
+            right: 21px;
+            color: rgba(119, 161, 238, 0.5);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        body.cc-home .step-symbol {
+            width: 66px;
+            height: 66px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 22px;
+            border-radius: 18px;
+            background: rgba(55, 130, 255, 0.15);
+            font-size: 29px;
+        }
+
+        body.cc-home .process-step:nth-child(2) .step-symbol {
+            background: rgba(147, 103, 255, 0.15);
+        }
+
+        body.cc-home .process-step:nth-child(3) .step-symbol {
+            background: rgba(46, 210, 145, 0.14);
+        }
+
+        body.cc-home .process-step h3 {
+            color: white;
+            font-size: 21px;
+            margin: 0 0 12px;
+        }
+
+        body.cc-home .process-step p {
+            font-size: 13px;
+            margin: 0;
+        }
+
+        /* CATEGORIES */
+
+        body.cc-home .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        body.cc-home .category-card {
+            padding: 25px;
+            background: rgba(22, 36, 64, 0.78);
+            border: 1px solid var(--card-border);
+            border-radius: 15px;
+            transition: 0.3s;
+        }
+
+        body.cc-home .category-card:hover {
+            transform: translateY(-5px);
+            background: rgba(32, 53, 91, 0.9);
+            border-color: rgba(86, 151, 255, 0.45);
+        }
+
+        body.cc-home .category-card > span {
+            width: 47px;
+            height: 47px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 17px;
+            background: rgba(64, 130, 255, 0.15);
+            border-radius: 12px;
+            font-size: 23px;
+        }
+
+        body.cc-home .category-card:nth-child(2) > span {
+            background: rgba(255, 178, 78, 0.14);
+        }
+
+        body.cc-home .category-card:nth-child(3) > span {
+            background: rgba(156, 119, 255, 0.16);
+        }
+
+        body.cc-home .category-card:nth-child(4) > span {
+            background: rgba(47, 207, 177, 0.14);
+        }
+
+        body.cc-home .category-card:nth-child(5) > span {
+            background: rgba(65, 156, 255, 0.15);
+        }
+
+        body.cc-home .category-card:nth-child(6) > span {
+            background: rgba(255, 105, 112, 0.14);
+        }
+
+        body.cc-home .category-card h3 {
+            color: white;
+            font-size: 17px;
+            margin: 0 0 8px;
+        }
+
+        body.cc-home .category-card p {
+            font-size: 12px;
+            margin: 0;
+        }
+
+        /* CALL TO ACTION */
+
+        body.cc-home .cta-section {
+            margin: 55px 8%;
+            padding: 55px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 35px;
+            border-radius: 22px;
+            border: 1px solid rgba(139, 165, 255, 0.24);
+            background:
+                radial-gradient(circle at 90% 10%, rgba(153, 111, 255, 0.35), transparent 40%),
+                linear-gradient(110deg, #1553a5, #493b9c 65%, #30265f);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.22);
+        }
+
+        body.cc-home .cta-section .section-label {
+            color: #c6d8ff;
+        }
+
+        body.cc-home .cta-section h2 {
+            color: white;
+            font-size: clamp(25px, 3vw, 37px);
+            margin: 0 0 12px;
+        }
+
+        body.cc-home .cta-section p {
+            color: #d0dcf7;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        body.cc-home .btn-light {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-shrink: 0;
+            padding: 16px 25px;
+            color: #18315d;
+            background: white;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 800;
+            transition: 0.3s;
+        }
+
+        body.cc-home .btn-light:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 9px 25px rgba(0,0,0,0.2);
+        }
+
+        /* FOOTER */
+
+        body.cc-home .footer {
+            padding: 40px 8% 20px;
+            background: #070b17;
+            border-top: 1px solid rgba(133, 159, 215, 0.15);
+        }
+
+        body.cc-home .footer-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(133, 159, 215, 0.14);
+        }
+
+        body.cc-home .footer-top p {
+            font-size: 13px;
+            margin: 0;
+        }
+
+        body.cc-home .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding-top: 20px;
+        }
+
+        body.cc-home .footer-bottom p {
+            font-size: 11px;
+            margin: 0;
+        }
+
+        /* RESPONSIVE DESIGN */
+
+        @media (max-width: 1000px) {
+            body.cc-home .hero {
+                grid-template-columns: 1fr;
+                padding-top: 75px;
+                gap: 65px;
+            }
+
+            body.cc-home .hero-content {
+                max-width: 750px;
+                margin: auto;
+                text-align: center;
+            }
+
+            body.cc-home .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            body.cc-home .hero-actions,
+            body.cc-home .hero-trust {
+                justify-content: center;
+            }
+
+            body.cc-home .hero-visual {
+                width: 100%;
+                max-width: 600px;
+                margin: auto;
+            }
+
+            body.cc-home .about-grid,
+            body.cc-home .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            body.cc-home .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            body.cc-home .tag-one {
+                right: -1%;
+            }
+
+            body.cc-home .tag-two {
+                left: -1%;
+            }
+        }
+
+        @media (max-width: 700px) {
+            body.cc-home .navbar {
+                padding: 12px 5%;
+                flex-wrap: wrap;
+            }
+
+            body.cc-home .brand {
+                font-size: 20px;
+            }
+
+            body.cc-home .campuscare-logo {
+                width: 42px;
+                height: 42px;
+            }
+
+            body.cc-home .menu-toggle {
+                display: block;
+            }
+
+            body.cc-home .nav-links {
+                display: none;
+                order: 4;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 10px 0;
+                border-top: 1px solid var(--card-border);
+            }
+
+            body.cc-home .nav-links.active {
+                display: flex;
+            }
+
+            body.cc-home .nav-links a {
+                padding: 13px 5px;
+            }
+
+            body.cc-home .nav-login {
+                margin-left: auto;
+                padding: 10px 13px;
+                font-size: 11px;
+            }
+
+            body.cc-home .hero {
+                padding: 65px 6%;
+                gap: 55px;
+            }
+
+            body.cc-home .hero h1 {
+                font-size: 43px;
+                letter-spacing: -1.8px;
+            }
+
+            body.cc-home .hero-description {
+                font-size: 14px;
+            }
+
+            body.cc-home .hero-trust {
+                gap: 7px;
+                font-size: 10px;
+            }
+
+            body.cc-home .dashboard-preview {
+                padding: 19px;
+            }
+
+            body.cc-home .floating-tag {
+                font-size: 8px;
+                padding: 9px 11px;
+            }
+
+            body.cc-home .trust-strip {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 24px 5%;
+            }
+
+            body.cc-home .trust-strip > div {
+                font-size: 11px;
+            }
+
+            body.cc-home .section {
+                padding: 70px 6%;
+            }
+
+            body.cc-home .about-grid,
+            body.cc-home .process-grid,
+            body.cc-home .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            body.cc-home .section-heading h2 {
+                font-size: 31px;
+            }
+
+            body.cc-home .cta-section {
+                margin: 35px 5%;
+                padding: 35px 25px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            body.cc-home .footer {
+                padding: 35px 6% 20px;
+            }
+
+            body.cc-home .footer-top,
+            body.cc-home .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 380px) {
+            body.cc-home .hero h1 {
+                font-size: 36px;
+            }
+
+            body.cc-home .nav-login {
+                padding: 9px 10px;
+            }
+
+            body.cc-home .preview-card {
+                padding: 12px;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body class="cc-home">
+
+    <!-- NAVIGATION -->
+    <header class="navbar">
+
+        <a href="index.html" class="brand">
+            <img
+                src="assets/campuscare-logo.png"
+                alt="CampusCare Logo"
+                class="campuscare-logo"
+            >
+            CampusCare
+        </a>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#process">How It Works</a>
+            <a href="#categories">Categories</a>
+        </nav>
+
+        <a href="login.html" class="nav-login">
+            Login / Get Started <span>→</span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+            ☰
+        </button>
+
+    </header>
+
+    <main>
+
+        <!-- HERO SECTION -->
+        <section class="hero" id="home">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    <span class="status-dot"></span>
+                    MIT ACADEMY OF ENGINEERING · ALANDI
+                </div>
+
+                <h1>
+                    A Better Campus
+                    Starts With <span>One Report.</span>
+                </h1>
+
+                <p class="hero-description">
+                    See a problem around your campus? Report it in
+                    seconds. CampusCare connects students,
+                    administrators and maintenance teams to make
+                    campus life cleaner, safer and better.
+                </p>
+
+                <div class="hero-actions">
+
+                    <a href="login.html" class="btn-primary">
+                        Report an Issue <span>→</span>
+                    </a>
+
+                    <a href="#process" class="btn-secondary">
+                        Explore How It Works
+                    </a>
+
+                </div>
+
+                <div class="hero-trust">
+                    <span class="trust-icon">✓</span>
+                    Simple Reporting
+                    <span class="trust-icon">✓</span>
+                    Easy Tracking
+                    <span class="trust-icon">✓</span>
+                    Faster Resolution
+                </div>
+
+            </div>
+
+            <!-- DASHBOARD PREVIEW -->
+            <div class="hero-visual">
+
+                <div class="visual-glow"></div>
+
+                <div class="dashboard-preview">
+
+                    <div class="preview-top">
+                        <div>
+                            <div class="preview-label">CAMPUSCARE OVERVIEW</div>
+                            <h3>Issue Management</h3>
+                        </div>
+
+                        <span class="live-indicator">● SYSTEM</span>
+                    </div>
+
+                    <div class="preview-card">
+                        <div class="preview-icon green">📋</div>
+
+                        <div>
+                            <strong>Report an Issue</strong>
+                            <p>Share problems with details and photos</p>
+                        </div>
+
+                        <span class="preview-arrow">→</span>
+                    </div>
+
+                    <div class="preview-card">
+                        <div class="preview-icon blue">🛠️</div>
+
+                        <div>
+                            <strong>Task Assignment</strong>
+                            <p>Administrators assign the right team</p>
+                        </div>
+
+                        <span class="preview-arrow">→</span>
+                    </div>
+
+                    <div class="preview-card">
+                        <div class="preview-icon orange">✓</div>
+
+                        <div>
+                            <strong>Issue Resolution</strong>
+                            <p>Track progress until the issue is resolved</p>
+                        </div>
+
+                        <span class="preview-arrow">→</span>
+                    </div>
+
+                    <div class="preview-footer">
+                        <span class="footer-check">✓</span>
+                        One connected campus maintenance system
+                    </div>
+
+                </div>
+
+                <div class="floating-tag tag-one">
+                    <span>●</span> SMART REPORTING
+                </div>
+
+                <div class="floating-tag tag-two">
+                    <span>✓</span> TRACK YOUR ISSUES
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- TRUST STRIP -->
+        <section class="trust-strip">
+
+            <div>
+                <span class="strip-icon">◎</span>
+                Student Friendly
+            </div>
+
+            <div>
+                <span class="strip-icon">⌖</span>
+                Location Based
+            </div>
+
+            <div>
+                <span class="strip-icon">↻</span>
+                Progress Tracking
+            </div>
+
+            <div>
+                <span class="strip-icon">✓</span>
+                Organized Maintenance
+            </div>
+
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section class="section about-section" id="about">
+
+            <div class="section-heading">
+
+                <span class="section-label">ABOUT CAMPUSCARE</span>
+
+                <h2>
+                    Your Campus. Your Voice.
+                    <span>Our Responsibility.</span>
+                </h2>
+
+                <p>
+                    CampusCare is a campus issue reporting and
+                    maintenance management platform designed for
+                    MIT Academy of Engineering. It brings students,
+                    administrators and maintenance workers together
+                    through one organized digital system.
+                </p>
+
+            </div>
+
+            <div class="about-grid">
+
+                <div class="info-card">
+                    <div class="info-icon">01</div>
+
+                    <h3>Easy Issue Reporting</h3>
+
+                    <p>
+                        Students can report cleanliness,
+                        infrastructure, electrical and other
+                        campus problems with descriptions and photos.
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">02</div>
+
+                    <h3>Location Assistance</h3>
+
+                    <p>
+                        Add the issue location manually or use
+                        device location support to help the
+                        maintenance team find the problem.
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">03</div>
+
+                    <h3>Transparent Tracking</h3>
+
+                    <p>
+                        Follow the status of submitted reports
+                        and receive updates as the maintenance
+                        team works on them.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- PROCESS SECTION -->
+        <section class="section process-section" id="process">
+
+            <div class="section-heading">
+
+                <span class="section-label">HOW IT WORKS</span>
+
+                <h2>
+                    Three Steps.
+                    <span>One Better Campus.</span>
+                </h2>
+
+                <p>
+                    From reporting a problem to getting it fixed,
+                    CampusCare makes the process simple and organized.
+                </p>
+
+            </div>
+
+            <div class="process-grid">
+
+                <div class="process-step">
+
+                    <span class="step-number">01</span>
+
+                    <div class="step-symbol">📝</div>
+
+                    <h3>Report</h3>
+
+                    <p>
+                        Students submit a report with its category,
+                        description, photo and location.
+                    </p>
+
+                </div>
+
+                <div class="process-step">
+
+                    <span class="step-number">02</span>
+
+                    <div class="step-symbol">🛠️</div>
+
+                    <h3>Assign</h3>
+
+                    <p>
+                        Administrators review the issue, set its
+                        priority and assign it to the appropriate worker.
+                    </p>
+
+                </div>
+
+                <div class="process-step">
+
+                    <span class="step-number">03</span>
+
+                    <div class="step-symbol">✅</div>
+
+                    <h3>Resolve</h3>
+
+                    <p>
+                        Workers complete the assigned task.
+                        Administrators verify the work and close the report.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ISSUE CATEGORIES -->
+        <section class="section categories-section" id="categories">
+
+            <div class="section-heading">
+
+                <span class="section-label">WHAT CAN YOU REPORT?</span>
+
+                <h2>
+                    Every Campus Issue
+                    <span>Matters.</span>
+                </h2>
+
+                <p>
+                    Report different types of maintenance and
+                    infrastructure problems from one place.
+                </p>
+
+            </div>
+
+            <div class="category-grid">
+
+                <div class="category-card">
+                    <span>🧹</span>
+                    <h3>Cleanliness</h3>
+                    <p>Garbage, dirty spaces and sanitation.</p>
+                </div>
+
+                <div class="category-card">
+                    <span>💡</span>
+                    <h3>Electrical</h3>
+                    <p>Broken lights, wiring and power problems.</p>
+                </div>
+
+                <div class="category-card">
+                    <span>🏢</span>
+                    <h3>Infrastructure</h3>
+                    <p>Damaged buildings, walls and facilities.</p>
+                </div>
+
+                <div class="category-card">
+                    <span>🚰</span>
+                    <h3>Water & Plumbing</h3>
+                    <p>Water leakage and plumbing problems.</p>
+                </div>
+
+                <div class="category-card">
+                    <span>🪑</span>
+                    <h3>Classroom Issues</h3>
+                    <p>Furniture, boards and classroom facilities.</p>
+                </div>
+
+                <div class="category-card">
+                    <span>⚠️</span>
+                    <h3>Safety Concerns</h3>
+                    <p>Hazards and potentially dangerous situations.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CALL TO ACTION -->
+        <section class="cta-section">
+
+            <div>
+
+                <span class="section-label">BE PART OF THE CHANGE</span>
+
+                <h2>
+                    A Better Campus Begins With You.
+                </h2>
+
+                <p>
+                    Notice a problem? Speak up, report it and
+                    help make a difference.
+                </p>
+
+            </div>
+
+            <a href="login.html" class="btn-light">
+                Get Started <span>→</span>
+            </a>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="footer-top">
+
+            <div class="footer-brand">
+                <a href="index.html" class="brand">
+                    <img
+                        src="assets/campuscare-logo.png"
+                        alt="CampusCare Logo"
+                        class="campuscare-logo"
+                    >
+                    <span style="color:white;">CampusCare</span>
+                </a>
+            </div>
+
+            <p>Report. Assign. Resolve.</p>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <p>
+                © <span id="year"></span> CampusCare.
+                MIT Academy of Engineering, Alandi.
+            </p>
+
+            <p>Made for a better campus experience.</p>
+
+        </div>
+
+    </footer>
+
+    <script>
+        // Current year
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+        // Mobile navigation
+        const menuToggle = document.getElementById("menuToggle");
+        const navLinks = document.getElementById("navLinks");
+
+        menuToggle.addEventListener("click", function () {
+            navLinks.classList.toggle("active");
+
+            menuToggle.textContent =
+                navLinks.classList.contains("active") ? "✕" : "☰";
+        });
+
+        // Close menu after clicking a navigation link
+        document.querySelectorAll(".nav-links a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                navLinks.classList.remove("active");
+                menuToggle.textContent = "☰";
+            });
+        });
+    </script>
+
+</body>
+</html>
+
 
         <!-- CALL TO ACTION -->
         <section class="cta-section">
